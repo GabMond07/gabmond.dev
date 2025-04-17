@@ -1,14 +1,38 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 :root{
     --font-Inter: 'Inter Variable', sans-serif;
+    --colors: rgb(129, 5, 160);
+    --background-gradient: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(13, 0, 18, 1) 50%, rgba(0, 0, 0, 1) 100%);
 }
-
 
 body{
     margin: 0;
     padding: 0;
     font-family: var(--font-Inter);
-    background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(13, 0, 18, 1) 50%, rgba(0, 0, 0, 1) 100%);
+    background: var(--background-gradient);
     color: white;
 }
+
+.hero-section-blur {
+    position: absolute; /* Necesario para posicionar los hijos absolutos */
+    overflow: hidden; /* Contiene el blur */
+    height: 100%; /* Necesario para que la altura se mantenga al cambiar de página */
+    width: 100%; /* Necesario para que la altura se mantenga al cambiar de página */
+    /* Otros estilos: padding, display, color, etc. */
+     padding: 6rem 2rem;
+     display: flex; /* etc. */
+  }
+    
+  .shape2 {
+    width: 400px; height: 350px;
+    bottom: 5%; left: 0;
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.6), transparent 70%);
+    filter: blur(150px); /* Puede tener diferente blur */
+    opacity: 0.4;
+    animation: move1 25s infinite alternate-reverse;
+  }
+ 
+  /* Keyframes opcionales para animación */
+   @keyframes move1 { from { transform: translate(-20px, 10px); } to { transform: translate(20px, -10px); } } 
