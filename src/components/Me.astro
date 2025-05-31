@@ -17,7 +17,7 @@ import WaveMove from '../components/Wave-move.astro';
 
 <div class="flex w-screen h-screen">
   <div
-    class="content w-1/2 flex flex-col items-center justify-center min-h-screen text-center text-zinc-300"
+    class="animate-fade-right animate-duration-1000 content w-1/2 flex flex-col items-center justify-center min-h-screen text-center text-zinc-300"
   >
     <div class="badge-container">
       <span class="badge-dot"></span>
@@ -207,7 +207,7 @@ import WaveMove from '../components/Wave-move.astro';
       </a>
       <a
         class="transform transition-transform duration-300 hover:scale-105"
-        href="https://www.linkedin.com/in/gabmond/"
+        href="https://drive.google.com/file/d/1QPljLIp1u8bfwXVIAWx5plCqOHW5boKS/view?usp=drive_link"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -245,9 +245,30 @@ import WaveMove from '../components/Wave-move.astro';
         </span>
       </a>
     </div>
+    <div class="absolute bottom-10 rounded-lg px-4 py-2 bg-black/10 border border-black shadow-lg shadow-fuchsia-500/5">
+      <div class="text-purple-600 font-mono text-sm">
+        <span id="animated-text"></span>
+        <span class="animate-pulse text-fuchsia-500">|</span> 
+      </div>
+    </div>
 </div>
   <div class="w-1/2">
     <!-- End the icons -->
     <Wave />
   </div>
 </div>
+
+<script>
+  const text = "> console.log('Bienvenido');";
+  let index = 0;
+  const animatedText = document.getElementById('animated-text');
+
+  function type() {
+    if (index < text.length) {
+      animatedText.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 100);
+    }
+  }
+  type();
+</script>
