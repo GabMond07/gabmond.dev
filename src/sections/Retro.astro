@@ -1,0 +1,191 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AnimatedCard from "../components/ui/AnimatedCard.astro";
+
+// Datos para las tarjetas de retrospectiva
+const retrospectives = [
+  {
+    year: 2024,
+    title: "The 2024 Retrospective",
+    description:
+      "First Full-Time Year, Solo Travel while Working, Socializing, and more!",
+    duration: "12 months",
+  },
+  {
+    year: 2023,
+    title: "The 2023 Retrospective",
+    description: "Graduation, Tech Writing, First Job, Mentorship, and more!",
+    duration: "365 days",
+  },
+  {
+    year: 2022,
+    title: "The 2022 Retrospective",
+    description: "Surabaya, Covid, Apple Developer Academy, Projects and more",
+    duration: "1 year",
+  },
+];
+---
+
+<Layout title="Retro Section">
+  <div class="min-h-screen relative overflow-hidden p-20">
+    <!-- Elementos decorativos de fondo mejorados -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1),transparent_50%)]"
+    >
+    </div>
+    <div
+      class="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 2s;"
+    >
+    </div>
+    <div
+      class="absolute top-3/4 right-1/3 w-54 h-54 bg-indigo-500/5 rounded-full blur-2xl animate-pulse"
+      style="animation-delay: 4s;"
+    >
+    </div>
+
+    <!-- Sección Retro -->
+    <section class="relative py-20 px-6" data-section="retro">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header con animaciones -->
+        <div class="mb-16" data-retro-header>
+          <h2
+            class="text-purple-400 text-sm font-medium mb-4 tracking-widest uppercase"
+          >
+            THE YEARLY
+        </h2>
+          <h1
+            class="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight bg-gradient-to-r from-white via-purple-200 to-violet-300 bg-clip-text text-transparent animate-gradient"
+          >
+            Retro
+          </h1>
+          <p
+            class="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed transform transition-all duration-1000 hover:text-gray-200"
+          >
+            Every year, I share my progress both in career and personal life.
+            Here's last 3 years of them.
+          </p>
+        </div>
+
+        <!-- Tarjetas de Retrospectiva con animaciones -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {
+            retrospectives.map((retro, index) => (
+              <AnimatedCard retro={retro} index={index} />
+            ))
+          }
+        </div>
+
+        <!-- Footer con años -->
+        <div class="flex justify-end space-x-8 text-gray-500" data-retro-footer>
+          <span
+            class="hover:text-purple-400 cursor-pointer transition-colors duration-300"
+            >2024</span
+          >
+          <span
+            class="hover:text-purple-400 cursor-pointer transition-colors duration-300"
+            >2023</span
+          >
+          <span
+            class="hover:text-purple-400 cursor-pointer transition-colors duration-300"
+            >2022</span
+          >
+          <span
+            class="hover:text-purple-400 cursor-pointer transition-colors duration-300"
+            >more...</span
+          >
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../scripts/mobile-gestures.js"></script>
+  <script src="../scripts/scroll-animations.js"></script>
+</Layout>
+
+<style>
+  @keyframes fade-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-fade-in-down {
+    animation: fade-in-down 1s ease-out;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 4s ease infinite;
+  }
+
+  /* Mejoras para móvil */
+  @media (max-width: 768px) {
+    .grid {
+      gap: 1.5rem;
+    }
+
+    h1 {
+      font-size: 3rem !important;
+      line-height: 1.1;
+    }
+
+    .aspect-video {
+      aspect-ratio: 16/10;
+    }
+  }
+
+  /* Efectos de performance */
+  .group {
+    will-change: transform;
+  }
+
+  .group:hover {
+    transform: translateZ(0);
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.5);
+  }
+</style>
