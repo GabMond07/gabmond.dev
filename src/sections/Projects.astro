@@ -1,4 +1,6 @@
 ---
+import Layout from "../layouts/Layout.astro";
+
 // Datos de los proyectos featured
 const projects = [
   {
@@ -7,10 +9,10 @@ const projects = [
     tools: ["unity"],
     buttons: [
       { text: "View Project", icon: "arrow", primary: true },
-      { text: "Open Live Site", icon: "external", primary: false }
+      { text: "Open Live Site", icon: "external", primary: false },
     ],
-    image: "/hexcape-mockup.jpg", 
-    imageAlt: "Hexcape game screenshot showing mobile interface"
+    image: "/hexcape-mockup.jpg",
+    imageAlt: "Hexcape game screenshot showing mobile interface",
   },
   {
     title: "Notiolink",
@@ -19,110 +21,321 @@ const projects = [
     buttons: [
       { text: "View Project", icon: "arrow", primary: true },
       { text: "Repository", icon: "github", primary: false },
-      { text: "Open Live Site", icon: "external", primary: false }
+      { text: "Open Live Site", icon: "external", primary: false },
     ],
-    image: "/notiolink-mockup.jpg", 
-    imageAlt: "Notiolink interface screenshot"
-  }
+    image: "/notiolink-mockup.jpg",
+    imageAlt: "Notiolink interface screenshot",
+  },
 ];
 ---
 
-<section class="relative py-20 px-6 bg-gradient-to-b from-transparent to-slate-900/20">
-  <div class="max-w-7xl mx-auto p-16">
-    <!-- Header -->
-    <div class="mb-16 text-center" data-section-header>
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
-        Featured <span class="text-green-400 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">Projects</span>
-      </h2>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        A selection of projects that I've worked on.
-      </p>
-    </div>
-
-    <!-- Projects Grid -->
-    <div class="space-y-24">
-      {projects.map((project, index) => (
-        <div
-          class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-fade-in-up opacity-0 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
-          style={`animation-delay: ${index * 300}ms;`}
-          data-project-index={index}
+<Layout title="Projects Section">
+  <section class="relative py-5 px-6 bg-gradient-to-b from-transparent via-slate-900/20 to-transparent">
+    <div class="max-w-7xl mx-auto p-16">
+      <!-- Header -->
+      <div class="mb-16 text-center" data-section-header>
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 opacity-0 transition-all duration-700"
         >
-          <!-- Project Image -->
-          <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} relative group`}>
-            <div class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-slate-700/50 aspect-video">
-              <!-- Placeholder para imagen -->
-              <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-slate-900/40 flex items-center justify-center">
-                <div class="text-center">
-                  <div class="w-16 h-16 bg-slate-700/50 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+          Featured
+          <span
+            class="bg-gradient-to-r from-[#86198F] to-[#701A75] bg-clip-text text-transparent"
+            >Projects</span
+          >
+        </h2>
+        <p
+          class="text-gray-400 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-100"
+        >
+          A selection of projects that I've worked on.
+        </p>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="space-y-24">
+        {projects.map((project, index) => (
+          <div
+            class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center project-card ${index % 2 === 1 ? "lg:grid-flow-dense" : ""}`}
+            style={`transition-delay: ${index * 300}ms;`}
+            data-project-index={index}
+          >
+            <!-- Project Image -->
+            <div
+              class={`${index % 2 === 1 ? "lg:col-start-2" : ""} relative group opacity-0 transition-all duration-700 delay-400`}
+            >
+              <div
+                class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-slate-700/50 aspect-video"
+              >
+                <!-- Placeholder para imagen -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-slate-900/40 flex items-center justify-center"
+                >
+                  <div class="text-center">
+                    <div
+                      class="w-16 h-16 bg-slate-700/50 rounded-lg mx-auto mb-4 flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-8 h-8 text-slate-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-slate-400 text-sm">{project.imageAlt}</p>
                   </div>
-                  <p class="text-slate-400 text-sm">{project.imageAlt}</p>
+                </div>
+
+                <!-- Hover overlay -->
+                <div
+                  class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                ></div>
+              </div>
+            </div>
+
+            <!-- Project Content -->
+            <div
+              class={`${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""} space-y-6`}
+            >
+              <!-- Title -->
+              <h3
+                class="text-3xl md:text-4xl font-bold text-white opacity-0 transition-all duration-700"
+              >
+                {project.title}
+              </h3>
+
+              <!-- Description -->
+              <p
+                class="text-gray-400 text-lg leading-relaxed opacity-0 transition-all duration-700 delay-100"
+              >
+                {project.description}
+              </p>
+
+              <!-- Tools -->
+              <div
+                class="flex items-center space-x-3 opacity-0 transition-all duration-700 delay-200"
+              >
+                <span class="text-sm text-gray-500 font-medium">Tools:</span>
+                <div class="flex space-x-2">
+                  {project.tools.map((tool) => (
+                    <div
+                      class="w-6 h-6 bg-slate-700 rounded flex items-center justify-center"
+                    >
+                      <span class="text-xs text-slate-300"
+                        >{tool.charAt(0).toUpperCase()}</span
+                      >
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <!-- Hover overlay -->
-              <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-
-          <!-- Project Content -->
-          <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''} space-y-6`}>
-            <!-- Title -->
-            <h3 class="text-3xl md:text-4xl font-bold text-white">
-              {project.title}
-            </h3>
-
-            <!-- Description -->
-            <p class="text-gray-400 text-lg leading-relaxed">
-              {project.description}
-            </p>
-
-            <!-- Tools -->
-            <div class="flex items-center space-x-3">
-              <span class="text-sm text-gray-500 font-medium">Tools:</span>
-              <div class="flex space-x-2">
-                {project.tools.map((tool) => (
-                  <div class="w-6 h-6 bg-slate-700 rounded flex items-center justify-center">
-                    <span class="text-xs text-slate-300">{tool.charAt(0).toUpperCase()}</span>
-                  </div>
+              <!-- Buttons -->
+              <div
+                class="flex flex-wrap gap-4 opacity-0 transition-all duration-700 delay-300"
+              >
+                {project.buttons.map((button) => (
+                  <button
+                    class={`
+                    flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-300
+                    ${
+                      button.primary
+                        ? "bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500"
+                        : "text-gray-400 hover:text-white border border-slate-700 hover:border-slate-600 bg-transparent hover:bg-slate-800/50"
+                    }
+                  `}
+                  >
+                    <span>{button.text}</span>
+                    {button.icon === "arrow" && (
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    )}
+                    {button.icon === "external" && (
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        ></path>
+                      </svg>
+                    )}
+                    {button.icon === "github" && (
+                      <svg
+                        class="w-4 h-4"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                        ></path>
+                      </svg>
+                    )}
+                  </button>
                 ))}
               </div>
             </div>
-
-            <!-- Buttons -->
-            <div class="flex flex-wrap gap-4">
-              {project.buttons.map((button) => (
-                <button class={`
-                  flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-300
-                  ${button.primary
-                    ? 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500'
-                    : 'text-gray-400 hover:text-white border border-slate-700 hover:border-slate-600 bg-transparent hover:bg-slate-800/50'
-                  }
-                `}>
-                  <span>{button.text}</span>
-                  {button.icon === 'arrow' && (
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  )}
-                  {button.icon === 'external' && (
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                  )}
-                  {button.icon === 'github' && (
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
-                    </svg>
-                  )}
-                </button>
-              ))}
-            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      <!-- See more projects link -->
+      <div class="flex justify-end mt-12" data-see-more>
+        <a
+          href="/projects"
+          class="flex items-center space-x-2 text-gray-400 hover:text-purple-400 transition-colors duration-300 opacity-0 transition-all duration-700"
+        >
+          <span class="text-lg font-medium">See more projects</span>
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+
+    <!-- Script para Intersection Observer -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // console.log("Observing:", entry.target); 
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target); // Dejar de observar después de la animación
+              }
+            });
+          },
+          { threshold: 0.5, rootMargin: "50px" } // Aumentar umbral y margen
+        );
+
+        // Observar header
+        const header = document.querySelector("[data-section-header]");
+        if (header) observer.observe(header);
+
+        // Observar proyectos
+        const projects = document.querySelectorAll(".project-card");
+        projects.forEach((project) => observer.observe(project));
+
+        // Observar enlace "See more projects"
+        const seeMore = document.querySelector("[data-see-more]");
+        if (seeMore) observer.observe(seeMore);
+      });
+    </script>
+  </section>
+</Layout>
+
+<style>
+  /* Animación para el header */
+  [data-section-header].is-visible h2,
+  [data-section-header].is-visible p {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-section-header] h2,
+  [data-section-header] p {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  /* Animación para los proyectos */
+  .project-card.is-visible h3,
+  .project-card.is-visible p,
+  .project-card.is-visible .flex,
+  .project-card.is-visible .flex-wrap,
+  .project-card.is-visible .group {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card h3,
+  .project-card p,
+  .project-card .flex,
+  .project-card .flex-wrap,
+  .project-card .group {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  /* Retrasos escalonados para los elementos hijos */
+  .project-card.is-visible p {
+    transition-delay: 100ms;
+  }
+
+  .project-card.is-visible .flex {
+    transition-delay: 200ms;
+  }
+
+  .project-card.is-visible .flex-wrap {
+    transition-delay: 300ms;
+  }
+
+  .project-card.is-visible .group {
+    transition-delay: 400ms;
+  }
+
+  /* Animación para el enlace "See more projects" */
+  [data-see-more].is-visible a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-see-more] a {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  /* Animación específica para móvil */
+  @media (max-width: 768px) {
+    .project-card h3,
+    .project-card p,
+    .project-card .flex,
+    .project-card .flex-wrap,
+    .project-card .group {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    [data-section-header] h2,
+    [data-section-header] p {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    [data-see-more] a {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+  }
+</style>
