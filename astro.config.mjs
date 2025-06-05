@@ -11,5 +11,11 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [react()]
+  integrations: [react()],
+
+  content: {
+    collections: {
+      posts: './src/content/posts/',
+    },
+  },
 });
