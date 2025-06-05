@@ -1,246 +1,178 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import AnimatedCard from "../components/ui/AnimatedCard.astro";
+import Layout from '../layouts/Layout.astro';
+import AnimatedCard from '../components/ui/AnimatedCard.astro';
+import { getCollection } from 'astro:content';
 
-// Datos para las tarjetas de retrospectiva
-const retrospectives = [
-  {
-    year: 2024,
-    title: "The 2024 Retrospective",
-    description:
-      "First Full-Time Year, Solo Travel while Working, Socializing, and more!",
-    duration: "12 months",
-  },
-  {
-    year: 2023,
-    title: "The 2023 Retrospective",
-    description: "Graduation, Tech Writing, First Job, Mentorship, and more!",
-    duration: "365 days",
-  },
-  {
-    year: 2022,
-    title: "The 2022 Retrospective",
-    description: "Surabaya, Covid, Apple Developer Academy, Projects and more",
-    duration: "1 year",
-  },
-];
+// Obtener todos los posts
+let allPosts = [];
+try {
+  allPosts = await getCollection('posts');
+  // Verificar que allPosts sea un array
+  if (!Array.isArray(allPosts)) {
+    console.error('getCollection did not return an array:', allPosts);
+    allPosts = [];
+  }
+  // Ordenar por fecha descendente
+  allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+} catch (error) {
+  console.error('Error fetching posts:', error);
+}
+
+// Configuración de paginación
+const postsPerPage = 3;
+const page = Astro.url.searchParams.get('page') ? parseInt(Astro.url.searchParams.get('page')) : 1;
+const paginatedPosts = allPosts.slice((page - 1) * postsPerPage, page * postsPerPage);
+
+// Mapear años a slugs
+const yearToSlugMap = allPosts.reduce((map, post) => {
+const year = new Date(post.data.date).getFullYear();
+map[year] = post.slug;
+return map;
+}, {});
 ---
 
 <Layout title="Retro Section">
   <div class="min-h-screen relative overflow-hidden p-20">
-    <!-- Elementos decorativos de fondo mejorados -->
-    <div
-      class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1),transparent_50%)]"
-    >
-    </div>
-    <div
-      class="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-900/2 rounded-full blur-3xl animate-pulse"
-    >
-    </div>
-    <div
-      class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-900/2 rounded-full blur-3xl animate-pulse"
-      style="animation-delay: 2s;"
-    >
-    </div>
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1),transparent_50%)]"></div>
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-900/2 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-900/2 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 
     <!-- Sección Retro -->
     <section class="relative py-20 px-6" data-section="retro">
       <div class="max-w-7xl mx-auto">
-        <!-- Header con animaciones -->
         <div class="mb-16" data-retro-header>
-          <h2
-            class="text-[#86198F] text-sm font-medium mb-4 tracking-widest uppercase opacity-0 transition-all duration-700"
-          >
+          <h2 class="text-[#86198F] text-sm font-medium mb-4 tracking-widest uppercase opacity-0 transition-all duration-700">
             THE YEARLY
           </h2>
-          <h1
-            class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight bg-gradient-to-r from-white via-purple-200 to-violet-300 bg-clip-text text-transparent animate-gradient opacity-0 transition-all duration-700 delay-100"
-          >
+          <h1 class="text-5xl md:text-6xl  lg:text-7xl font-black mb-6 leading-tight bg-gradient-to-r from-white via-purple-200 to-violet-300 bg-clip-text text-transparent animate-gradient opacity-0 transition-all duration-700 delay-100">
             Retro
           </h1>
-          <p
-            class="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 transition-all duration-700 delay-200 hover:text-gray-200"
-          >
-            Every year, I share my progress both in career and personal life.
-            Here's last 3 years of them.
+          <p class="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 transition-all duration-700 delay-200 hover:text-gray-200">
+            Every year, I share my progress both in career and personal life. Here's last 3 years of them.
           </p>
         </div>
 
-        <!-- Tarjetas de Retrospectiva con animaciones -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {
-            retrospectives.map((retro, index) => (
-              <AnimatedCard retro={retro} index={index} />
-            ))
-          }
+          {paginatedPosts.map((post, index) => (
+            <AnimatedCard
+              retro={{
+                year: new Date(post.data.date).getFullYear(),
+                title: post.data.title,
+                description: post.data.preview,
+                duration: post.data.duration,
+                thumbnail: post.data.thumbnail,
+                slug: post.slug,
+              }}
+              index={index}
+            />
+          ))}
         </div>
-
-        <!-- Footer con años -->
+        <!-- Footer con años enlazados a posts -->
         <div class="flex justify-end space-x-8 text-gray-500" data-retro-footer>
-          <span
-            class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-300"
-            >2024</span
-          >
-          <span
-            class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-400"
-            >2023</span
-          >
-          <span
-            class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-500"
-            >2022</span
-          >
-          <span
-            class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-600"
-            >more...</span
-          >
+          <a href={`/blog/${yearToSlugMap[2024] || ''}`}>
+            <span class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-300">2024</span>
+          </a>
+          <a href={`/blog/${yearToSlugMap[2023] || ''}`}>
+            <span class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-400">2023</span>
+          </a>
+          <a href={`/blog/${yearToSlugMap[2022] || ''}`}>
+            <span class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-500">2022</span>
+          </a>
+          <a href={`/blog`}>
+            <span class="hover:text-purple-400 cursor-pointer transition-colors duration-300 opacity-0 transition-all duration-700 delay-600">more...</span>
+          </a>
         </div>
       </div>
     </section>
   </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target); // Dejar de observar después de la animación
-          }
-        });
-      },
-      { threshold: 0.3 } // Activa cuando el 10% del elemento es visible
-    );
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
 
-    // Observar header
-    const header = document.querySelector("[data-retro-header]");
-    if (header) observer.observe(header);
+      const header = document.querySelector("[data-retro-header]");
+      if (header) observer.observe(header);
 
-    // Observar tarjetas
-    const cards = document.querySelectorAll(".animated-card");
-    cards.forEach((card) => observer.observe(card));
+      const cards = document.querySelectorAll(".animated-card");
+      cards.forEach((card) => observer.observe(card));
 
-    // Observar footer
-    const footer = document.querySelector("[data-retro-footer]");
-    if (footer) observer.observe(footer);
-  });
-</script>
-</Layout>
+      const footer = document.querySelector("[data-retro-footer]");
+      if (footer) observer.observe(footer);
+    });
+  </script>
 
-<style>
-  @keyframes fade-in-down {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
+  <style>
+    @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    to {
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    [data-retro-header].is-visible h2,
+    [data-retro-header].is-visible h1,
+    [data-retro-header].is-visible p {
       opacity: 1;
       transform: translateY(0);
+      animation: fade-in-down 0.9s ease-out forwards;
     }
-  }
 
-  @keyframes slide-in {
-    from {
+    .animated-card {
       opacity: 0;
       transform: translateY(50px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
     }
-    to {
+
+    .animated-card.is-visible {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  /* Animaciones para elementos del header */
-  [data-retro-header].is-visible h2,
-  [data-retro-header].is-visible h1,
-  [data-retro-header].is-visible p {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fade-in-down 0.9s ease-out forwards;
-  }
-
-  /* Animaciones para tarjetas */
-  .animated-card {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-  }
-
-  .animated-card.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: slide-in 0.7s ease-out forwards;
-  }
-
-  /* Animaciones para footer */
-  [data-retro-footer].is-visible span {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fade-in-down 0.7s ease-out forwards;
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 4s ease infinite;
-  }
-
-  /* Mejoras para móvil */
-  @media (max-width: 768px) {
-    .grid {
-      gap: 1.5rem;
+      animation: slide-in 0.7s ease-out forwards;
     }
 
-    h1 {
-      font-size: 3rem !important;
-      line-height: 1.1;
+    [data-retro-footer].is-visible span {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fade-in-down 0.7s ease-out forwards;
     }
 
-    .aspect-video {
-      aspect-ratio: 16/10;
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 4s ease infinite;
     }
-  }
 
-  /* Efectos de performance */
-  .group {
-    will-change: transform;
-  }
+    @media (max-width: 768px) {
+      .grid { gap: 1.5rem; }
+      h1 { font-size: 3rem !important; line-height: 1.1; }
+      .aspect-video { aspect-ratio: 16/10; }
+    ..
 
-  .group:hover {
-    transform: translateZ(0);
-  }
+    .group { will-change: transform; }
+    .group:hover { transform: translateZ(0); }
+    html { scroll-behavior: smooth; }
 
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(168, 85, 247, 0.3);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(168, 85, 247, 0.5);
-  }
-</style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+    ::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(168, 85, 247, 0.5); }
+  </style>
+</Layout>
