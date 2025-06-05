@@ -1,26 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Home from '../sections/Home.astro';
-import Navigation from '../components/Navigation.astro';
-import Projects from '../sections/Projects.astro';
-import Retro from '../sections/Retro.astro';
-import Footer from '../components/Footer.astro';
-import Words from '../sections/Words.astro';
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Home from "../sections/Home.astro";
+import Nav from "../components/Nav.astro";
+import Projects from "../sections/Projects.astro";
+import Retro from "../sections/Retro.astro";
+import Footer from "../components/Footer.astro";
+import Words from "../sections/Words.astro";
 ---
 
-<Layout>
-	<header>
-		<Navigation />
-	</header>
-	<main>
-		<Home />
-		<Retro />
-		<Projects />
-		<Words />
-	</main>
-	<footer>
-		<Footer />
-	</footer>
+<Layout title="Home">
+  <Nav />
+  <main>
+    <Home />
+    <Retro />
+    <Projects />
+    <Words />
+  </main>
+  <Footer />
 </Layout>
