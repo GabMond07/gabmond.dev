@@ -6,6 +6,6 @@ categories: ['retro']
 readTime: '12'
 views: '2447'
 duration: '12 months'
-thumbnail: '/rick.avif'
+thumbnail: '/images/rick.avif'
 ---
 Contenido del post...
